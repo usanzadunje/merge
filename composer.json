@@ -1,0 +1,26 @@
+{
+  "name": "usanzadunje/pdo-test",
+  "description": "Testing PDO and PDO MySql",
+  "type": "project",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Usanzadunje\\": "src/"
+    },
+    "files": [
+      "src/Support/helpers.php",
+      "src/Database/helpers.php",
+      "src/Authentication/helpers.php"
+    ]
+  },
+  "authors": [
+    {
+      "name": "Dusan Djordjevic",
+      "email": "dussann1997@live.com"
+    }
+  ],
+  "require": {
+    "php": "^8.0",
+    "ext-pdo": "*"
+  }
+}
