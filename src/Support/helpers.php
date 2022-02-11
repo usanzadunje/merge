@@ -12,6 +12,16 @@ if (!function_exists('base_path')) {
     }
 }
 
+if (!function_exists('resource_path')) {
+
+    function resource_path(string $path = null): string
+    {
+        $reflection = new \ReflectionClass(ClassLoader::class);
+
+        return rtrim(dirname($reflection->getFileName(), 3) . "/src/resources/$path", '/');
+    }
+}
+
 if (!function_exists('config')) {
 
     function config(string $config)

@@ -124,6 +124,10 @@ class Model
      */
     private function executeStatement($bindings = null): PDOStatement
     {
+        if (empty($this->query)) {
+            $this->query = "SELECT * FROM $this->table";
+        }
+
         $statement = $this->connection->prepare($this->query);
         $statement->execute($bindings);
 
