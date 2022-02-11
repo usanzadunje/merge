@@ -9,7 +9,7 @@
         <li>
             <h1><?= $product->getName() ?></h1>
             <p><?= $product->getDescription() ?></p>
-            <a href="/show?id=<?php echo $product->getId() ?>">SHOW</a>
+            <a href="/products/<?php echo $product->getId() ?>">SHOW</a>
         </li>
     <?php
     endforeach ?>

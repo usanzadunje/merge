@@ -13,7 +13,7 @@ class PostController
         require resource_path('views/products/index.php');
     }
 
-    public static function show(int $id)
+    public static function show($id)
     {
         $product = (new Product())->where('id', $id)->first();
 

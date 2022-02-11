@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title><?= $title ?></title>
+        <title>Error | 404</title>
     </head>
     <body>
-        <?= $content ?>
+        <h1>Not Found</h1>
     </body>
 </html>

@@ -15,24 +15,41 @@ class Router
 
     public function route()
     {
-        $regx = preg_replace('(\d+)', '([^\/]+)', $this->path);
+        $routeAction = null;
+        $actionParams = null;
 
+        // Getting all integer parameters(which will be give to controller action)
+        preg_match_all('(\d+)', $this->path, $actionParams);
+
+        // Changing every integer parameter to regex expression which presents
+        // any character as long as it is not forward slash
+        $regx = preg_replace('(\d+)', '([^\/]+)', $this->path);
+        $regx = "!^" . str_replace('/', '\/', $regx) . "$!";
 
         $routes = require base_path('src/routes/web.php');
-        $routes = array_keys($routes);
 
-        foreach ($routes as $route) {
-            $hit = preg_match("\/posts\/{id}", $route, $matches);
-            echo "$route | ";
-            echo "$regx \n";
+        // Getting route paths
+        $routePaths = array_keys($routes);
 
-            if($hit){
-                dd('we got a hit');
+        // Compare each path with given expression and save callable for that specific route path when
+        // match occurs. Exit on first match.
+        foreach ($routePaths as $path) {
+            $hit = preg_match($regx, $path, $matches);
+
+            if ($hit) {
+                $routeAction = $routes[$path];
+                break;
             }
         }
 
-        echo "\n";
-        dd("-------------------------");
-        call_user_func($routes[$this->path]);
+        // If we did not find any routes that match expression simply throw 404.
+        if (!$routeAction) {
+            header('HTTP/1.1 404 Not Found');
+            require resource_path('views/errors/404.php');
+        }
+
+        // Call controller action and provide parameters to it.
+        // Parameters are always strings. FOR NOW
+        call_user_func($routeAction, ...$actionParams[0]);
     }
 }
