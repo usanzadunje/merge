@@ -23,7 +23,7 @@ class Authentication
         }
 
         session_start(array(
-            'save_path' => base_path('src/resources/sessions'),
+            'save_path' => resource_path('sessions'),
         ));
 
         if (!isset($_SESSION['auth'])) {

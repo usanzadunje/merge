@@ -26,7 +26,7 @@ class Router
         $regx = preg_replace('(\d+)', '([^\/]+)', $this->path);
         $regx = "!^" . str_replace('/', '\/', $regx) . "$!";
 
-        $routes = require base_path('src/routes/web.php');
+        $routes = require base_path('routes/web.php');
 
         // Getting route paths
         $routePaths = array_keys($routes);

@@ -8,7 +8,7 @@ if (!function_exists('base_path')) {
     {
         $reflection = new \ReflectionClass(ClassLoader::class);
 
-        return rtrim(dirname($reflection->getFileName(), 3) . "/$path", '/');
+        return rtrim(dirname($reflection->getFileName(), 3) . "/src/$path", '/');
     }
 }
 
@@ -28,7 +28,7 @@ if (!function_exists('config')) {
     {
         list($file, $key) = explode('.', $config, 2);
 
-        $config = require base_path("src/config/$file.php");
+        $config = require base_path("config/$file.php");
 
         return $config[$key];
     }
