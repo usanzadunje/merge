@@ -5,6 +5,7 @@ namespace Usanzadunje\Database;
 use PDO;
 use PDOException;
 use PDOStatement;
+use Usanzadunje\Exceptions\NotFoundException;
 
 class Model
 {
@@ -184,6 +185,31 @@ class Model
             $statement = $this->executeStatement($this->bindings['where']);
 
             return $this->generateModel($statement->fetch());
+        }catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+
+            return false;
+        }
+    }
+
+    /**
+     * Executes PDO prepared statement for defined query and return single model instance or throws Not Found error.
+     *
+     * @return Model|bool
+     */
+    public function firstOrFail(): Model|bool
+    {
+        try {
+            $statement = $this->executeStatement($this->bindings['where']);
+
+            $model = $this->generateModel($statement->fetch());
+            if ($model) {
+                return $model;
+            }
+
+            NotFoundException::handle();
+
+            return false;
         }catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
 

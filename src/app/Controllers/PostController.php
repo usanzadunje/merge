@@ -15,7 +15,7 @@ class PostController
 
     public static function show($id)
     {
-        $product = (new Product())->where('id', $id)->first();
+        $product = (new Product())->where('id', $id)->firstOrFail();
 
         require resource_path('views/products/show.php');
     }

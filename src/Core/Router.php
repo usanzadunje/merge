@@ -2,54 +2,28 @@
 
 namespace Usanzadunje\Core;
 
+use Usanzadunje\Exceptions\NotFoundException;
+
 class Router
 {
-    private ?string $path;
-    private ?string $query;
+    private Route $route;
 
     public function __construct()
     {
-        $this->path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $this->query = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+        $this->route = Route::getInstance();
     }
 
-    public function route()
+    public function initialize()
     {
-        $routeAction = null;
-        $actionParams = null;
-
-        // Getting all integer parameters(which will be give to controller action)
-        preg_match_all('(\d+)', $this->path, $actionParams);
-
-        // Changing every integer parameter to regex expression which presents
-        // any character as long as it is not forward slash
-        $regx = preg_replace('(\d+)', '([^\/]+)', $this->path);
-        $regx = "!^" . str_replace('/', '\/', $regx) . "$!";
-
-        $routes = require base_path('routes/web.php');
-
-        // Getting route paths
-        $routePaths = array_keys($routes);
-
-        // Compare each path with given expression and save callable for that specific route path when
-        // match occurs. Exit on first match.
-        foreach ($routePaths as $path) {
-            $hit = preg_match($regx, $path, $matches);
-
-            if ($hit) {
-                $routeAction = $routes[$path];
-                break;
-            }
-        }
+        $routeAction = $this->route->action();
 
         // If we did not find any routes that match expression simply throw 404.
         if (!$routeAction) {
-            header('HTTP/1.1 404 Not Found');
-            require resource_path('views/errors/404.php');
+            NotFoundException::handle();
         }
 
         // Call controller action and provide parameters to it.
-        // Parameters are always strings. FOR NOW
-        call_user_func($routeAction, ...$actionParams[0]);
+        // Parameters are always integers. FOR NOW
+        call_user_func($routeAction, ...$this->route->params());
     }
 }

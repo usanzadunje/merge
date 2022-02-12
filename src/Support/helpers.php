@@ -1,6 +1,8 @@
 <?php
 
 use Composer\Autoload\ClassLoader;
+use JetBrains\PhpStorm\NoReturn;
+use Usanzadunje\Core\Route;
 
 if (!function_exists('base_path')) {
 
@@ -24,7 +26,7 @@ if (!function_exists('resource_path')) {
 
 if (!function_exists('config')) {
 
-    function config(string $config)
+    function config(string $config): string
     {
         list($file, $key) = explode('.', $config, 2);
 
@@ -34,9 +36,17 @@ if (!function_exists('config')) {
     }
 }
 
+if (!function_exists('route')) {
+
+    function route(): Route
+    {
+        return Route::getInstance();
+    }
+}
+
 if (!function_exists('dd')) {
 
-    function dd($variable)
+    #[NoReturn] function dd($variable)
     {
         echo "<pre>";
         var_dump($variable);

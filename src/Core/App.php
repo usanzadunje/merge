@@ -9,6 +9,6 @@ class App
     public function __construct()
     {
         (new DotEnv(base_path() . '/.env'))->load();
-        (new Router())->route();
+        (new Router())->initialize();
     }
 }
