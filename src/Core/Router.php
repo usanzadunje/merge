@@ -6,16 +6,9 @@ use Usanzadunje\Exceptions\NotFoundException;
 
 class Router
 {
-    private Route $route;
-
-    public function __construct()
+    public static function initialize()
     {
-        $this->route = Route::getInstance();
-    }
-
-    public function initialize()
-    {
-        $routeAction = $this->route->action();
+        $routeAction = route()->action();
 
         // If we did not find any routes that match expression simply throw 404.
         if (!$routeAction) {
@@ -24,6 +17,6 @@ class Router
 
         // Call controller action and provide parameters to it.
         // Parameters are always integers. FOR NOW
-        call_user_func($routeAction, ...$this->route->params());
+        call_user_func($routeAction, ...route()->params());
     }
 }

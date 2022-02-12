@@ -5,28 +5,20 @@ namespace Usanzadunje\Support;
 class DotEnv
 {
     /**
-     * The directory where the .env file can be located.
+     * Reads .env file and writes its content into $_ENV superglobal so values
+     * from the file are accessible through getenv function
      *
-     * @var string
+     * @return void
      */
-    protected $path;
-
-
-    public function __construct(string $path)
+    public static function initialize(): void
     {
-        if (!file_exists($path)) {
-            throw new \InvalidArgumentException(sprintf('%s does not exist', $path));
-        }
-        $this->path = $path;
-    }
+        $envPath = base_path() . '/.env';
 
-    public function load(): void
-    {
-        if (!is_readable($this->path)) {
-            throw new \RuntimeException(sprintf('%s file is not readable', $this->path));
+        if (!is_readable($envPath)) {
+            throw new \RuntimeException(sprintf('%s file is not readable', $envPath));
         }
 
-        $lines = file($this->path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        $lines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         foreach ($lines as $line) {
 
             if (str_starts_with(trim($line), '#')) {
@@ -37,10 +29,9 @@ class DotEnv
             $name = trim($name);
             $value = trim($value);
 
-            if (!array_key_exists($name, $_SERVER) && !array_key_exists($name, $_ENV)) {
+            if (!array_key_exists($name, $_ENV)) {
                 putenv(sprintf('%s=%s', $name, $value));
                 $_ENV[$name] = $value;
-                $_SERVER[$name] = $value;
             }
         }
     }

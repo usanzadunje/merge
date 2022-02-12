@@ -8,10 +8,6 @@ class Connection
 {
     private static PDO $pdoInstance;
 
-    private function __construct() {}
-
-    private function __clone() {}
-
     /**
      * Returns PDO instance or instantiates new one if it has not been instantiated before.
      *

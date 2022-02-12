@@ -2,7 +2,9 @@
 
 use Usanzadunje\Core\App;
 
+// Require autoloader file from composer
 require '../../vendor/autoload.php';
 
-$app = new App();
+// Initialize application
+App::initialize();
 
