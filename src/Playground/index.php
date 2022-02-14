@@ -1,20 +1,17 @@
 <?php
 
-use Usanzadunje\Playground\Adapter\MastercardPaymentAdapter;
-use Usanzadunje\Playground\Adapter\MastercardPaymentApi;
-use Usanzadunje\Playground\Adapter\Payment;
-use Usanzadunje\Playground\Adapter\PayPalPayment;
+
+use Usanzadunje\Playground\Bridge\HTMLRenderer;
+use Usanzadunje\Playground\Bridge\JsonRenderer;
+use Usanzadunje\Playground\Bridge\Page;
+use Usanzadunje\Playground\Bridge\Product;
+use Usanzadunje\Playground\Bridge\ProductPage;
+use Usanzadunje\Playground\Bridge\SimplePage;
 
 require '../../vendor/autoload.php';
 
 
-function execute(Payment $payment)
+function execute(Page $page)
 {
-    $payment->charge(999);
+    echo $page->view();
 }
-
-$paypal = new PayPalPayment('admin', 'password');
-$mca = new MastercardPaymentApi('USD');
-$mastercard = new MastercardPaymentAdapter($mca);
-
-execute($mastercard);
