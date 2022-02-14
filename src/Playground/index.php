@@ -1,9 +1,14 @@
 <?php
 
-use Usanzadunje\Playground\Facade\YoutubeDownloader;
+use Usanzadunje\Playground\Proxy\ThirdPartyDownloader;
 
 require '../../vendor/autoload.php';
 
-$facade = new YoutubeDownloader('xxx-xxx-xxx');
+function execute(ThirdPartyDownloader $downloader)
+{
+    $downloader->download('https://example.com');
 
-$facade->download('https://www.youtube.com/123f4sdefad');
+    $downloader->download('https://example.com');
+}
+
+execute(new ThirdPartyDownloader());
