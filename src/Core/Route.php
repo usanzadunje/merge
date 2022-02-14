@@ -12,7 +12,7 @@ class Route extends Singleton
     private ?string $routeSignature = null;
     private array $allRoutes;
 
-    protected function afterInstantiation()
+    protected function __construct()
     {
         $this->allRoutes = require base_path('routes/web.php');
         $this->path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);

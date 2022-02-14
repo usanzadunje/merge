@@ -4,22 +4,27 @@ namespace Usanzadunje\Core\Extendable;
 
 class Singleton
 {
-    protected static Singleton $instance;
+    protected static array $instances = [];
 
-    private function __construct() {}
+    protected function __construct() {}
 
     private function __clone() {}
 
-    public static function getInstance(): static
+    /**
+     * @throws \Exception
+     */
+    public function __wakeup()
     {
-        if (!isset(static::$instance)) {
-            static::$instance = new static;
-
-            static::$instance->afterInstantiation();
-        }
-
-        return static::$instance;
+        throw new \Exception("Object is not unserializable");
     }
 
-    protected function afterInstantiation() {}
+    public static function getInstance(): static
+    {
+        $classIdentified = static::class;
+        if (!isset(static::$instances[$classIdentified])) {
+            self::$instances[$classIdentified] = new static();
+        }
+
+        return self::$instances[$classIdentified];
+    }
 }
