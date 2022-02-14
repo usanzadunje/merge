@@ -3,6 +3,7 @@
 use Usanzadunje\app\Controllers\PostController;
 
 return [
-    '/posts' => [PostController::class, 'index'],
-    '/posts/{id}' => [PostController::class, 'show'],
+    '/products' => [PostController::class, 'index'],
+    '/products/{id}' => [PostController::class, 'show'],
+    '/products/{id}/edit/{dd}' => [PostController::class, 'edit'],
 ];

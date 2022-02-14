@@ -1,6 +1,8 @@
 <?php
 
 use Composer\Autoload\ClassLoader;
+use JetBrains\PhpStorm\NoReturn;
+use Usanzadunje\Core\Route;
 
 if (!function_exists('base_path')) {
 
@@ -8,7 +10,7 @@ if (!function_exists('base_path')) {
     {
         $reflection = new \ReflectionClass(ClassLoader::class);
 
-        return rtrim(dirname($reflection->getFileName(), 3) . "/$path", '/');
+        return rtrim(dirname($reflection->getFileName(), 3) . "/src/$path", '/');
     }
 }
 
@@ -24,19 +26,27 @@ if (!function_exists('resource_path')) {
 
 if (!function_exists('config')) {
 
-    function config(string $config)
+    function config(string $config): string
     {
         list($file, $key) = explode('.', $config, 2);
 
-        $config = require base_path("src/config/$file.php");
+        $config = require base_path("config/$file.php");
 
         return $config[$key];
     }
 }
 
+if (!function_exists('route')) {
+
+    function route(): Route
+    {
+        return Route::getInstance();
+    }
+}
+
 if (!function_exists('dd')) {
 
-    function dd($variable)
+    #[NoReturn] function dd($variable)
     {
         echo "<pre>";
         var_dump($variable);

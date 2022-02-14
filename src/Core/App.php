@@ -6,9 +6,12 @@ use Usanzadunje\Support\DotEnv;
 
 class App
 {
-    public function __construct()
+    public static function initialize()
     {
-        (new DotEnv(base_path() . '/.env'))->load();
-        (new Router())->route();
+        // Write values from .env, so they are readable through 'getenv' function
+        DotEnv::initialize();
+
+        // Initialize router which will call right action for called route
+        Router::initialize();
     }
 }

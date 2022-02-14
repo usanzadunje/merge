@@ -2,37 +2,21 @@
 
 namespace Usanzadunje\Core;
 
+use Usanzadunje\Exceptions\NotFoundException;
+
 class Router
 {
-    private ?string $path;
-    private ?string $query;
-
-    public function __construct()
+    public static function initialize()
     {
-        $this->path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $this->query = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
-    }
+        $routeAction = route()->action();
 
-    public function route()
-    {
-        $regx = preg_replace('(\d+)', '([^\/]+)', $this->path);
-
-
-        $routes = require base_path('src/routes/web.php');
-        $routes = array_keys($routes);
-
-        foreach ($routes as $route) {
-            $hit = preg_match("\/posts\/{id}", $route, $matches);
-            echo "$route | ";
-            echo "$regx \n";
-
-            if($hit){
-                dd('we got a hit');
-            }
+        // If we did not find any routes that match expression simply throw 404.
+        if (!$routeAction) {
+            NotFoundException::handle();
         }
 
-        echo "\n";
-        dd("-------------------------");
-        call_user_func($routes[$this->path]);
+        // Call controller action and provide parameters to it.
+        // Parameters are always integers. FOR NOW
+        call_user_func($routeAction, ...route()->params());
     }
 }
