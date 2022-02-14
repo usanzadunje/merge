@@ -1,20 +1,9 @@
 <?php
 
-use Usanzadunje\Playground\Decorator\FacebookDecorator;
-use Usanzadunje\Playground\Decorator\Notifier;
-use Usanzadunje\Playground\Decorator\NotifierDecorator;
-use Usanzadunje\Playground\Decorator\SimpleNotifier;
-use Usanzadunje\Playground\Decorator\SlackDecorator;
+use Usanzadunje\Playground\Facade\YoutubeDownloader;
 
 require '../../vendor/autoload.php';
 
-function execute(Notifier $notifier)
-{
-    $notifier->send('slack');
-}
+$facade = new YoutubeDownloader('xxx-xxx-xxx');
 
-$sn = new SimpleNotifier();
-$slack = new SlackDecorator($sn);
-$fb = new FacebookDecorator($slack);
-
-execute($fb);
+$facade->download('https://www.youtube.com/123f4sdefad');
