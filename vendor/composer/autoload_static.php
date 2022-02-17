@@ -17,12 +17,20 @@ class ComposerStaticInite45bccbfe5fa73af19c2bd7891c14e11
         array (
             'Usanzadunje\\' => 12,
         ),
+        'A' => 
+        array (
+            'App\\' => 4,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'Usanzadunje\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'App\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/app',
         ),
     );
 

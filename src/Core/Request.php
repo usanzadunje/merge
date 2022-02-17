@@ -2,7 +2,9 @@
 
 namespace Usanzadunje\Core;
 
-class Request
+use Usanzadunje\Core\Extendable\Singleton;
+
+class Request extends Singleton
 {
     private ?string $path;
     private ?string $query;

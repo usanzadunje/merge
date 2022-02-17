@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Usanzadunje\\' => array($baseDir . '/src'),
+    'App\\' => array($baseDir . '/src/app'),
 );

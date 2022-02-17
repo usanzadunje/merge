@@ -1,9 +1,12 @@
 <?php
 
-use Usanzadunje\Playground\Facade\YoutubeDownloader;
+use Usanzadunje\Playground\CoR\UserExists;
+use Usanzadunje\Playground\CoR\UserHasRole;
 
 require '../../vendor/autoload.php';
 
-$facade = new YoutubeDownloader('xxx-xxx-xxx');
+$middleware = new UserExists();
 
-$facade->download('https://www.youtube.com/123f4sdefad');
+$middleware->setNext(new UserHasRole());
+
+$middleware->check('exists@live.com', 'role');
