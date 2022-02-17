@@ -1,14 +1,15 @@
 <?php
 
-use Usanzadunje\Playground\Proxy\ThirdPartyDownloader;
+
+use Usanzadunje\Playground\Iterator\WordCollection;
 
 require '../../vendor/autoload.php';
 
-function execute(ThirdPartyDownloader $downloader)
-{
-    $downloader->download('https://example.com');
+$collection = new WordCollection();
+$collection->addItem('Jedan');
+$collection->addItem('Dva');
+$collection->addItem('Tri');
 
-    $downloader->download('https://example.com');
+foreach($collection->getReverseIterator() as $item){
+    echo "$item <br/>";
 }
-
-execute(new ThirdPartyDownloader());
