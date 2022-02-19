@@ -1,15 +1,15 @@
 <?php
 
 
-use Usanzadunje\Playground\Iterator\WordCollection;
+use Usanzadunje\Playground\State\LockedState;
+use Usanzadunje\Playground\State\Mobile;
 
 require '../../vendor/autoload.php';
 
-$collection = new WordCollection();
-$collection->addItem('Jedan');
-$collection->addItem('Dva');
-$collection->addItem('Tri');
+$mobile = new Mobile(new LockedState());
 
-foreach($collection->getReverseIterator() as $item){
-    echo "$item <br/>";
-}
+$mobile->clickScreen();
+$mobile->clickSideButton();
+
+$mobile->clickScreen();
+$mobile->clickSideButton();
