@@ -1,20 +1,9 @@
 #!/usr/bin/env php
 <?php
 
+use Usanzadunje\Core\Commands\CommandRouter;
+
 require '../vendor/autoload.php';
 
-if (array_key_exists(1, $argv) && $argv[1] === 'serve') {
-    $host = 'localhost';
-    $port = 8080;
+CommandRouter::initialize($argv);
 
-    if (array_key_exists(2, $argv) && $argv[2] === '--host') {
-        $host = array_key_exists(3, $argv) ? $argv[3] : $host;
-    }
-
-    if (array_key_exists(4, $argv) && $argv[4] === '--port') {
-        $port = array_key_exists(5, $argv) ? $argv[5] : $port;
-    }
-
-    shell_exec("cd public");
-    shell_exec("php -S $host:$port");
-}
