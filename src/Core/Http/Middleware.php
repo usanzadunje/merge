@@ -1,6 +1,6 @@
 <?php
 
-namespace Usanzadunje\Core;
+namespace Usanzadunje\Core\Http;
 
 use Closure;
 

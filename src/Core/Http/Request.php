@@ -1,8 +1,10 @@
 <?php
 
-namespace Usanzadunje\Core;
+namespace Usanzadunje\Core\Http;
 
 use Usanzadunje\Core\Extendable\Singleton;
+use function base_path;
+use function resource_path;
 
 class Request extends Singleton
 {

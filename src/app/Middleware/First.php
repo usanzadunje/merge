@@ -2,8 +2,8 @@
 
 namespace Usanzadunje\app\Middleware;
 
-use Usanzadunje\Core\Middleware;
-use Usanzadunje\Core\Request;
+use Usanzadunje\Core\Http\Middleware;
+use Usanzadunje\Core\Http\Request;
 
 class First extends Middleware
 {
