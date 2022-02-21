@@ -60,7 +60,11 @@ class Container
         return $reflector->newInstanceArgs($dependencies);
     }
 
-    private function getDependencies(array $parameters)
+    /**
+     * @throws ReflectionException
+     * @throws Exception
+     */
+    private function getDependencies(array $parameters) : array
     {
         $dependencies = [];
 

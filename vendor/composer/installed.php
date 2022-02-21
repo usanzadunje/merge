@@ -1,23 +1,24 @@
-<?php return array(
-    'root' => array(
-        'pretty_version' => 'dev-main',
-        'version' => 'dev-main',
-        'type' => 'project',
-        'install_path' => __DIR__ . '/../../',
-        'aliases' => array(),
-        'reference' => '13ec8e0945512aecdb423be303f8b5a545ad2c35',
-        'name' => 'usanzadunje/pdo-test',
-        'dev' => true,
+<?php return array (
+  'root' => 
+  array (
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
+    'aliases' => 
+    array (
     ),
-    'versions' => array(
-        'usanzadunje/pdo-test' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'type' => 'project',
-            'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
-            'reference' => '13ec8e0945512aecdb423be303f8b5a545ad2c35',
-            'dev_requirement' => false,
-        ),
+    'reference' => '0ae6a36404d3e6e2800c8855f2701a807e4eb181',
+    'name' => 'usanzadunje/pdo-test',
+  ),
+  'versions' => 
+  array (
+    'usanzadunje/pdo-test' => 
+    array (
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '0ae6a36404d3e6e2800c8855f2701a807e4eb181',
     ),
+  ),
 );
