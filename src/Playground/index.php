@@ -1,15 +1,31 @@
 <?php
 
-use Usanzadunje\Playground\Strategy\AdditionStrategy;
-use Usanzadunje\Playground\Strategy\Context;
-use Usanzadunje\Playground\Strategy\MultiplicationStrategy;
+use Usanzadunje\Playground\TemplateMethod\Facebook;
+use Usanzadunje\Playground\TemplateMethod\Twitter;
 
 require '../../vendor/autoload.php';
 
-$additionStrategy = new AdditionStrategy();
+echo "Username: \n";
+$username = readline();
 
-$context = new Context($additionStrategy);
+echo "Password: \n";
+$password = readline();
 
-$context->setStrategy(new MultiplicationStrategy());
+echo "Message: \n";
+$message = readline();
 
-echo $context->doWork(10, 5);
+echo "\nChoose the social network to post the message:\n" .
+    "1 - Facebook\n" .
+    "2 - Twitter\n";
+
+$choice = readline();
+
+// Now, let's create a proper social network object and send the message.
+if ($choice == 1) {
+    $network = new Facebook($username, $password);
+}else if ($choice == 2) {
+    $network = new Twitter($username, $password);
+}else {
+    die("Sorry, I'm not sure what you mean by that.\n");
+}
+$network->post($message);
