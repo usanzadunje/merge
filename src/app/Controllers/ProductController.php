@@ -3,6 +3,7 @@
 namespace Usanzadunje\app\Controllers;
 
 use Usanzadunje\Core\Http\Request;
+use Usanzadunje\Core\Route;
 use Usanzadunje\Models\Product;
 
 class ProductController
@@ -14,9 +15,9 @@ class ProductController
         require resource_path('views/products/index.php');
     }
 
-    public static function show(Request $request, $id)
+    public static function show(Request $request, Product $product, $nesto, Route $r)
     {
-        $product = (new Product())->where('id', $id)->firstOrFail();
+        $product = (new Product())->where('id', $product)->firstOrFail();
 
         require resource_path('views/products/show.php');
     }

@@ -2,7 +2,6 @@
 
 namespace Usanzadunje\Core;
 
-use Usanzadunje\Core\Http\Request;
 use Usanzadunje\Exceptions\NotFoundException;
 
 class Router
@@ -12,18 +11,13 @@ class Router
         $container = new Container();
         $routeAction = route()->action();
 
-        // If we did not find any routes that match expression simply throw 404.
         if (!$routeAction) {
             NotFoundException::handle();
         }
 
-        $actionParams = [
-            ...$container->resolveFunctionDependencies(...$routeAction),
-            ...route()->params(),
-        ];
+        dd($container->resolveActionDependencies(...$routeAction));
 
-        // Call controller action and provide parameters to it.
-        // Parameters are always integers. FOR NOW
-        call_user_func($routeAction, ...$actionParams);
+        // TODO LET ROUTE PARAMETERS BE OTHER TYPES THAN STRINGS
+        call_user_func($routeAction, ...$container->resolveActionDependencies(...$routeAction));
     }
 }

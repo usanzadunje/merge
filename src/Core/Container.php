@@ -6,8 +6,9 @@ use Closure;
 use Exception;
 use ReflectionClass;
 use ReflectionException;
-use ReflectionFunction;
+use ReflectionParameter;
 use Usanzadunje\Core\Extendable\Singleton;
+use Usanzadunje\Database\Model;
 
 class Container
 {
@@ -38,7 +39,7 @@ class Container
      * @throws ReflectionException
      * @throws Exception
      */
-    private function resolve($concrete, array $parameters)
+    private function resolve($concrete, array $parameters) : mixed
     {
         if ($concrete instanceof Closure) {
             return $concrete($this, $parameters);
@@ -78,17 +79,24 @@ class Container
             $dependency = $parameter->getClass();
 
             if (is_null($dependency)) {
-                if ($parameter->isDefaultValueAvailable()) {
-                    $dependencies[] = $parameter->getDefaultValue();
-                }else {
-                    throw new Exception("Cannot resolve class dependency $parameter");
-                }
+                $dependencies[] = $this->getParameterDefaultValue($parameter);
             }else {
                 $dependencies[] = $this->get($dependency->name);
             }
         }
 
         return $dependencies;
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function getParameterDefaultValue(ReflectionParameter $parameter): mixed {
+        if ($parameter->isDefaultValueAvailable()) {
+            return $parameter->getDefaultValue();
+        }else {
+            throw new Exception("Cannot resolve class dependency $parameter");
+        }
     }
 
     /**
@@ -101,14 +109,39 @@ class Container
         $methodReflector = $reflector->getMethod($methodName);
 
         $parameters = $methodReflector->getParameters();
-        $parametersWithoutRouteParameters = [];
+
+        return $this->resolveDependencies($parameters);
+    }
+
+    /**
+     * @throws ReflectionException
+     * @throws Exception
+     */
+    public function resolveActionDependencies($abstract, $methodName): array
+    {
+        $reflector = new ReflectionClass($abstract);
+
+        $methodReflector = $reflector->getMethod($methodName);
+
+        $parameters = $methodReflector->getParameters();
+
+        $resolvedParameters = [];
 
         foreach ($parameters as $parameter) {
-            if (!in_array($parameter->getName(), route()->paramNames())) {
-                $parametersWithoutRouteParameters[] = $parameter;
+            $parameterName = $parameter->getName();
+
+            if ($parameter->getClass()?->isSubclassOf(Model::class)) {
+                $modelClass = $parameter->getType()->getName();
+                $resolvedParameters[] = (new $modelClass())->where('id', route()->paramValues($parameterName))->firstOrFail();
+            }elseif ($parameter->getClass()) {
+                $resolvedParameters[] = $this->resolve($parameter->getType()->getName(), []);
+            }elseif (in_array($parameterName, route()->paramNames())) {
+                $resolvedParameters[] = route()->paramValues($parameterName);
+            }else {
+                $resolvedParameters[] = $this->getParameterDefaultValue($parameter);
             }
         }
 
-        return $this->resolveDependencies($parametersWithoutRouteParameters);
+        return $resolvedParameters;
     }
 }

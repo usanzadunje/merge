@@ -16,8 +16,8 @@ class Route extends Singleton
     {
         $this->allRoutes = require base_path('routes/web.php');
         $this->path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $this->getRouteQuery();
-        $this->getRouteParams();
+        $this->setRouteQuery();
+        $this->setRouteParams();
     }
 
     /**
@@ -71,7 +71,7 @@ class Route extends Singleton
         return $routeParamNames;
     }
 
-    private function getRouteParams(): void
+    private function setRouteParams(): void
     {
         $routeParamNames = $this->getRouteParamNames();
         $routeParamValues = $this->getRouteParamValues();
@@ -88,11 +88,11 @@ class Route extends Singleton
         }
     }
 
-    private function getRouteQuery()
+    private function setRouteQuery()
     {
         $fullQuery = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
 
-        if(is_null($fullQuery)){
+        if (is_null($fullQuery)) {
             return;
         }
 
@@ -117,13 +117,17 @@ class Route extends Singleton
         return $this->query ? $this->query[$key] : null;
     }
 
-    public function param(string $key): mixed
-    {
-        return $this->params ? $this->params[$key] : null;
-    }
-
     public function params(): array
     {
+        return $this->params;
+    }
+
+    public function paramValues(string $key = null): mixed
+    {
+        if ($key) {
+            return $this->params ? $this->params[$key] : null;
+        }
+
         return $this->params ? array_values($this->params) : [];
     }
 
