@@ -9,7 +9,6 @@ class Serve extends Command
         $host = $this->getArgumentIfExists('host') ?? 'localhost';
         $port = $this->getArgumentIfExists('port') ?? 8080;
 
-        shell_exec("cd public");
-        shell_exec("php -S $host:$port");
+        shell_exec("php -S $host:$port -t public/");
     }
 }
