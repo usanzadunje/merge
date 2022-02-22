@@ -6,13 +6,14 @@ use Closure;
 use Exception;
 use ReflectionClass;
 use ReflectionException;
+use ReflectionFunction;
 use Usanzadunje\Core\Extendable\Singleton;
 
 class Container
 {
     private array $instances = [];
 
-    public function set($abstract, $concrete = null)
+    public function set($abstract, $concrete = null): void
     {
         if (is_null($concrete)) {
             $concrete = $abstract;
@@ -90,8 +91,24 @@ class Container
         return $dependencies;
     }
 
-    public function resolveFunction($class, $function)
+    /**
+     * @throws ReflectionException
+     */
+    public function resolveFunctionDependencies($abstract, $methodName): array
     {
-        
+        $reflector = new ReflectionClass($abstract);
+
+        $methodReflector = $reflector->getMethod($methodName);
+
+        $parameters = $methodReflector->getParameters();
+        $parametersWithoutRouteParameters = [];
+
+        foreach ($parameters as $parameter) {
+            if (!in_array($parameter->getName(), route()->paramNames())) {
+                $parametersWithoutRouteParameters[] = $parameter;
+            }
+        }
+
+        return $this->resolveDependencies($parametersWithoutRouteParameters);
     }
 }

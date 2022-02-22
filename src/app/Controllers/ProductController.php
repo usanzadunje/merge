@@ -14,7 +14,7 @@ class ProductController
         require resource_path('views/products/index.php');
     }
 
-    public static function show($id)
+    public static function show(Request $request, $id)
     {
         $product = (new Product())->where('id', $id)->firstOrFail();
 

@@ -17,10 +17,13 @@ class Router
             NotFoundException::handle();
         }
 
+        $actionParams = [
+            ...$container->resolveFunctionDependencies(...$routeAction),
+            ...route()->params(),
+        ];
+
         // Call controller action and provide parameters to it.
         // Parameters are always integers. FOR NOW
-        $container->resolveFunction(...$routeAction);
-
-        call_user_func($routeAction, ...route()->params());
+        call_user_func($routeAction, ...$actionParams);
     }
 }

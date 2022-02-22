@@ -127,6 +127,11 @@ class Route extends Singleton
         return $this->params ? array_values($this->params) : [];
     }
 
+    public function paramNames(): array
+    {
+        return $this->params ? array_keys($this->params) : [];
+    }
+
     public function routeSignature(): ?string
     {
         return $this->routeSignature;
