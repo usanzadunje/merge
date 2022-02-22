@@ -6,6 +6,7 @@ use Closure;
 use Exception;
 use ReflectionClass;
 use ReflectionException;
+use Usanzadunje\Core\Extendable\Singleton;
 
 class Container
 {
@@ -13,7 +14,7 @@ class Container
 
     public function set($abstract, $concrete = null)
     {
-        if ($concrete === null) {
+        if (is_null($concrete)) {
             $concrete = $abstract;
         }
 
@@ -44,6 +45,10 @@ class Container
 
         $reflector = new ReflectionClass($concrete);
 
+        if ($reflector->isSubclassOf(Singleton::class)) {
+            return call_user_func([$reflector->getName(), 'getInstance']);
+        }
+
         if (!$reflector->isInstantiable()) {
             throw new Exception("Class $concrete is not instantiatable.");
         }
@@ -55,7 +60,7 @@ class Container
         }
 
         $parameters = $constructor->getParameters();
-        $dependencies = $this->getDependencies($parameters);
+        $dependencies = $this->resolveDependencies($parameters);
 
         return $reflector->newInstanceArgs($dependencies);
     }
@@ -64,14 +69,14 @@ class Container
      * @throws ReflectionException
      * @throws Exception
      */
-    private function getDependencies(array $parameters) : array
+    private function resolveDependencies(array $parameters): array
     {
         $dependencies = [];
 
         foreach ($parameters as $parameter) {
             $dependency = $parameter->getClass();
 
-            if ($dependency === null) {
+            if (is_null($dependency)) {
                 if ($parameter->isDefaultValueAvailable()) {
                     $dependencies[] = $parameter->getDefaultValue();
                 }else {
