@@ -1,29 +1,28 @@
 <?php
 
-namespace Usanzadunje\Models;
+namespace Usanzadunje\app\Models;
 
 use Usanzadunje\Database\Model;
 
-class User extends Model
+class Product extends Model
 {
     protected string $name;
-    protected string $email;
+    protected ?string $description;
 
     protected array $attributes = [
         'name',
         'description',
-        'password',
     ];
 
-    protected string $table = 'users';
+    protected string $table = 'products';
 
     public function getName()
     {
         return $this->name;
     }
 
-    public function getEmail()
+    public function getDescription()
     {
-        return $this->email;
+        return $this->description;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Usanzadunje\Models;
+namespace Usanzadunje\app\Models;
 
 use Usanzadunje\Database\Model;
 

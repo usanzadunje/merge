@@ -1,6 +1,6 @@
 <?php
 
-namespace Usanzadunje\app\Middleware;
+namespace Usanzadunje\app\Http\Middleware;
 
 use Usanzadunje\Core\Http\Middleware;
 use Usanzadunje\Core\Http\Request;

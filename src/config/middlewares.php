@@ -1,8 +1,8 @@
 <?php
 
-use Usanzadunje\app\Middleware\First;
-use Usanzadunje\app\Middleware\Second;
-use Usanzadunje\app\Middleware\Third;
+use Usanzadunje\app\Http\Middleware\First;
+use Usanzadunje\app\Http\Middleware\Second;
+use Usanzadunje\app\Http\Middleware\Third;
 
 return [
     First::class,

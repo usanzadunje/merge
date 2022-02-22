@@ -1,9 +1,9 @@
 <?php
 
-namespace Usanzadunje\app\Controllers;
+namespace Usanzadunje\app\Http\Controllers;
 
+use Usanzadunje\app\Models\Product;
 use Usanzadunje\Core\Http\Request;
-use Usanzadunje\Models\Product;
 
 class ProductController
 {
@@ -18,4 +18,6 @@ class ProductController
     {
         require resource_path('views/products/show.php');
     }
+
+
 }

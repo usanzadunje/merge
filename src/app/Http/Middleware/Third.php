@@ -1,15 +1,15 @@
 <?php
 
-namespace Usanzadunje\app\Middleware;
+namespace Usanzadunje\app\Http\Middleware;
 
 use Usanzadunje\Core\Http\Middleware;
 use Usanzadunje\Core\Http\Request;
 
-class First extends Middleware
+class Third extends Middleware
 {
     public function handle(Request $request,)
     {
-        echo 'First';
+        echo 'Third';
 
         return parent::handle($request);
     }

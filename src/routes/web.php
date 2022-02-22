@@ -1,6 +1,6 @@
 <?php
 
-use Usanzadunje\app\Controllers\ProductController;
+use Usanzadunje\app\Http\Controllers\ProductController;
 
 return [
     '/products' => [ProductController::class, 'index'],

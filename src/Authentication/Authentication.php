@@ -2,7 +2,7 @@
 
 namespace Usanzadunje\Authentication;
 
-use Usanzadunje\Models\User;
+use Usanzadunje\app\Models\User;
 
 class Authentication
 {
