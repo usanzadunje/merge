@@ -10,4 +10,5 @@ return [
     '/products/{product}/edit' => [ProductController::class, 'edit'],
     '/products/{product}/update' => [ProductController::class, 'update'],
     '/products/{product}/destroy' => [ProductController::class, 'destroy'],
+    '/test' => [ProductController::class, 'test'],
 ];

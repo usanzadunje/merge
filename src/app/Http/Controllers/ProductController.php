@@ -49,4 +49,25 @@ class ProductController
 
         $request->redirect('/products');
     }
+
+    public static function test()
+    {
+        $title = 'TITLE';
+        $name = 'NAME';
+        $description = 'DESCRIPTION';
+
+        $content = file_get_contents(resource_path('views/products/test.php'));
+
+        $content = str_replace('{{', '<?=', $content);
+
+        $content = str_replace('}}', '?>', $content);
+
+        ob_start();
+
+        echo $content;
+
+        $content = ob_get_clean();
+
+        echo $content;
+    }
 }
