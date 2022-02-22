@@ -2,11 +2,12 @@
 
 namespace Usanzadunje\app\Controllers;
 
+use Usanzadunje\Core\Http\Request;
 use Usanzadunje\Models\Product;
 
-class PostController
+class ProductController
 {
-    public static function index()
+    public static function index(Request $request)
     {
         $products = (new Product())->get();
 

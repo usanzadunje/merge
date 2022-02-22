@@ -92,6 +92,10 @@ class Route extends Singleton
     {
         $fullQuery = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
 
+        if(is_null($fullQuery)){
+            return;
+        }
+
         $queryParts = explode('&', $fullQuery);
 
         foreach ($queryParts as $part) {

@@ -89,4 +89,9 @@ class Container
 
         return $dependencies;
     }
+
+    public function resolveFunction($class, $function)
+    {
+        
+    }
 }

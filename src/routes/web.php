@@ -1,9 +1,9 @@
 <?php
 
-use Usanzadunje\app\Controllers\PostController;
+use Usanzadunje\app\Controllers\ProductController;
 
 return [
-    '/products' => [PostController::class, 'index'],
-    '/products/{id}' => [PostController::class, 'show'],
-    '/products/{id}/edit/{dd}' => [PostController::class, 'edit'],
+    '/products' => [ProductController::class, 'index'],
+    '/products/{id}' => [ProductController::class, 'show'],
+    '/products/{id}/edit/{dd}' => [ProductController::class, 'edit'],
 ];
