@@ -18,6 +18,4 @@ class ProductController
     {
         require resource_path('views/products/show.php');
     }
-
-
 }

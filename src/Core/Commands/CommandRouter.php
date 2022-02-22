@@ -49,6 +49,7 @@ class CommandRouter
     {
         return match ($commandName) {
             'serve' => new Serve($arguments),
+            'make:controller' => new MakeController($arguments),
             default => throw new Exception("Unknown command \n"),
         };
     }
