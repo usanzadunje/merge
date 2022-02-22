@@ -15,8 +15,6 @@ class Router
             NotFoundException::handle();
         }
 
-        dd($container->resolveActionDependencies(...$routeAction));
-
         // TODO LET ROUTE PARAMETERS BE OTHER TYPES THAN STRINGS
         call_user_func($routeAction, ...$container->resolveActionDependencies(...$routeAction));
     }

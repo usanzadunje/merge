@@ -39,7 +39,7 @@ class Container
      * @throws ReflectionException
      * @throws Exception
      */
-    private function resolve($concrete, array $parameters) : mixed
+    private function resolve($concrete, array $parameters): mixed
     {
         if ($concrete instanceof Closure) {
             return $concrete($this, $parameters);
@@ -91,7 +91,8 @@ class Container
     /**
      * @throws Exception
      */
-    private function getParameterDefaultValue(ReflectionParameter $parameter): mixed {
+    private function getParameterDefaultValue(ReflectionParameter $parameter): mixed
+    {
         if ($parameter->isDefaultValueAvailable()) {
             return $parameter->getDefaultValue();
         }else {
@@ -132,10 +133,10 @@ class Container
 
             if ($parameter->getClass()?->isSubclassOf(Model::class)) {
                 $modelClass = $parameter->getType()->getName();
-                $resolvedParameters[] = (new $modelClass())->where('id', route()->paramValues($parameterName))->firstOrFail();
-            }elseif ($parameter->getClass()) {
+                $resolvedParameters[] = (new $modelClass())->find(route()->paramValues($parameterName));
+            }else if ($parameter->getClass()) {
                 $resolvedParameters[] = $this->resolve($parameter->getType()->getName(), []);
-            }elseif (in_array($parameterName, route()->paramNames())) {
+            }else if (in_array($parameterName, route()->paramNames())) {
                 $resolvedParameters[] = route()->paramValues($parameterName);
             }else {
                 $resolvedParameters[] = $this->getParameterDefaultValue($parameter);

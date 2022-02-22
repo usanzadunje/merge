@@ -217,6 +217,11 @@ class Model
         }
     }
 
+    public function find($id): Model
+    {
+        return $this->where($this->primaryKey, $id)->firstOrFail();
+    }
+
     /**
      * Generates single model from SQL query result
      *

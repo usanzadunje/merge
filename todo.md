@@ -3,6 +3,6 @@
 [] Nakon instaliranja preko kompozera napraviti skriptu koja ce da kopira .env
 [] Dodati mogucnost definisanja rute za specificne http metode
 [] Dodati DI container
-[] 
+[] Model where statement da grupise kad ima or where i to
 [] 
 [] 
