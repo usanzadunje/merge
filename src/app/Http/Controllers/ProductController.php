@@ -14,12 +14,12 @@ class ProductController
         require resource_path('views/products/index.php');
     }
 
-    public static function show(Request $request, Product $product)
+    public static function show(Product $product)
     {
         require resource_path('views/products/show.php');
     }
 
-    public static function create(Request $request)
+    public static function create()
     {
         require resource_path('views/products/create.php');
     }
@@ -27,9 +27,11 @@ class ProductController
     public static function store(Request $request)
     {
         (new Product())->insert($request->all());
+
+        $request->redirect('/products');
     }
 
-    public static function edit(Request $request, Product $product)
+    public static function edit(Product $product)
     {
         require resource_path('views/products/edit.php');
     }
@@ -37,10 +39,14 @@ class ProductController
     public static function update(Request $request, Product $product)
     {
         $product->update($request->all());
+
+        $request->redirect('/products/' . $product->getId());
     }
 
     public static function destroy(Request $request, Product $product)
     {
         $product->delete();
+
+        $request->redirect('/products');
     }
 }
