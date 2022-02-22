@@ -20,4 +20,9 @@ class Request extends Singleton
     {
         return Route::getInstance();
     }
+
+    public function all()
+    {
+        return $_POST;
+    }
 }

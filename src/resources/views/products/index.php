@@ -3,6 +3,9 @@
 <?php ob_start() ?>
 
 <h1>List of products</h1>
+
+<div><a href="/products/create">Create</a></div>
+
 <ul>
     <?php
     foreach ($products as $product): ?>

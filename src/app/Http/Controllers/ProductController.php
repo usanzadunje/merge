@@ -18,4 +18,29 @@ class ProductController
     {
         require resource_path('views/products/show.php');
     }
+
+    public static function create(Request $request)
+    {
+        require resource_path('views/products/create.php');
+    }
+
+    public static function store(Request $request)
+    {
+        (new Product())->insert($request->all());
+    }
+
+    public static function edit(Request $request, Product $product)
+    {
+        require resource_path('views/products/edit.php');
+    }
+
+    public static function update(Request $request, Product $product)
+    {
+        $product->update($request->all());
+    }
+
+    public static function destroy(Request $request, Product $product)
+    {
+        $product->delete();
+    }
 }
