@@ -36,14 +36,6 @@ if (!function_exists('config')) {
     }
 }
 
-if (!function_exists('route')) {
-
-    function route(): Route
-    {
-        return Route::getInstance();
-    }
-}
-
 if (!function_exists('dd')) {
 
     #[NoReturn] function dd($variable)

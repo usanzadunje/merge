@@ -52,22 +52,10 @@ class ProductController
 
     public static function test()
     {
-        $title = 'TITLE';
-        $name = 'NAME';
-        $description = 'DESCRIPTION';
+        $title = 'Naslov';
+        $name = 'Ime i prezime';
+        $description = 'Deskripcija';
 
-        $content = file_get_contents(resource_path('views/products/test.php'));
-
-        $content = str_replace('{{', '<?=', $content);
-
-        $content = str_replace('}}', '?>', $content);
-
-        ob_start();
-
-        echo $content;
-
-        $content = ob_get_clean();
-
-        echo $content;
+        echo view('products/test.hemp', ['title' => $title, 'name' => $name, 'description' => $description])->render();
     }
 }
