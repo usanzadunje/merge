@@ -13,8 +13,8 @@ if (!function_exists('route')) {
 
 if (!function_exists('view')) {
 
-    function view(string $path, array $parameters = []): Template
+    function view(string $path, array $parameters = []): string
     {
-        return new Template($path, $parameters);
+        return (new Template($path, $parameters))->render();
     }
 }

@@ -12,8 +12,8 @@ class Template
 
     public function __construct(string $path, array $parameters = [])
     {
-        $this->path = $path;
-        $this->absolutePath = resource_path('views/' . $path);
+        $this->path = str_replace('.', '/', $path) . '.html';
+        $this->absolutePath = resource_path('views/' . $this->path);
         $this->parameters = $parameters;
     }
 
@@ -25,7 +25,7 @@ class Template
     /**
      * @throws Exception
      */
-    public function render()
+    public function render(): string
     {
         if (!file_exists($this->absolutePath)) {
             throw new Exception(sprintf('The file %s could not be found.', $this->absolutePath));
@@ -33,8 +33,22 @@ class Template
 
         $output = file_get_contents($this->absolutePath);
 
+        if (!$this->parameters) {
+            return $output;
+        }
+
         foreach ($this->parameters as $key => $value) {
-            $output = str_replace("{{ $key }}", $value, $output);
+            $key = "\\$$key";
+
+            /**
+             * Matches variables defined between '{{' and '}}' characters inside template
+             *
+             * e.g. {{ $variable }} | {{$variable}} | {{    $variable        }}
+             * {{
+             * $variable
+             * }}
+             */
+            $output = preg_replace("/{{\s{0,}$key\s{0,}}}/", $value, $output);
         }
 
         return $output;

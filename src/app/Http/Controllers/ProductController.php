@@ -56,6 +56,6 @@ class ProductController
         $name = 'Ime i prezime';
         $description = 'Deskripcija';
 
-        echo view('products/test.hemp', ['title' => $title, 'name' => $name, 'description' => $description])->render();
+        echo view('products.test', ['title' => $title, 'name' => $name, 'description' => $description]);
     }
 }

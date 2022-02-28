@@ -4,5 +4,5 @@
 [] Dodati mogucnost definisanja rute za specificne http metode i ruter da ima nacina da rutira na rutu odredjene metode iako su one istog potpisa
 [X] Dodati DI container
 [] Model where statement da grupise kad ima or where i to
-[] 
+[] Template engine da moze da extenduje layoute
 [] 
