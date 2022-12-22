@@ -33,6 +33,8 @@ class Template
 
         $output = file_get_contents($this->absolutePath);
 
+        $this->checkIfExtendsTemplate($output);
+
         if (!$this->parameters) {
             return $output;
         }
@@ -50,6 +52,14 @@ class Template
              */
             $output = preg_replace("/{{\s{0,}$key\s{0,}}}/", $value, $output);
         }
+
+        return $output;
+    }
+
+    private function checkIfExtendsTemplate(string $output): string {
+        preg_match("/@extends'(\d+)'/", $output, $matches);
+
+        dd($matches);
 
         return $output;
     }

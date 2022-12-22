@@ -6,6 +6,7 @@ use Usanzadunje\Exceptions\NotFoundException;
 
 class Router
 {
+
     public static function initialize()
     {
         $container = new Container();
